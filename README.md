@@ -1,4 +1,4 @@
-Create different expenses categories and add/withdrow amounts to keep control of the balance
+Create different expenses categories and add/withdraw amounts to keep control of the balance
 
 ![image](https://github.com/karmariv/budgetapp/assets/19791050/21abab63-e8d3-4abb-aeae-67406d0faa81)
 
