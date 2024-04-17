@@ -20,6 +20,15 @@ class Category:
 
     #deposit method        
     def deposit(self, amount, description = ""):
+        """
+        Accepts and amount and description
+        Description is empty string by  default
+        The object appended to the ledger list
+
+        Arguments:
+        amount 
+        description 
+        """
         #update ledger
         self.deposit_ledger.append( {"amount":amount, "description":description})
         
@@ -27,6 +36,17 @@ class Category:
         self.balance_amount = self.balance_amount + amount
 
     def withdraw(self, amount, description = ""):
+        """
+        Accepts and amount and description, but amount is passed as negative number. If there are not enough funds nothing should be added to the leger
+        This method returns TRUE if the withdrawal took place, and FALSE otherwise
+
+        Arguments:
+        amount 
+        description 
+
+        Return Boolean
+        """
+
         if self.check_funds(amount) == True:
             #update ledger & balance amount
             self.deposit_ledger.append( {"amount":amount*-1, "description":description})
@@ -37,9 +57,28 @@ class Category:
         return False
 
     def get_balance(self):
+        """
+        Returns the current balance of the budget category based on the deposits and withdrawals that have occurred.
+        """
         return self.balance_amount
     
     def transfer(self, amount, category):
+        """
+        Accepts an amount and another budget category as arguments. The method should add a withdrawal with the amount 
+        and the description "Transfer to [Destination Budget Category]". The method adds a deposit to the other budget 
+        category with the amount and the description "Transfer from [Source Budget Category]". If there are not enough funds, 
+        nothing is added to either ledgers. 
+
+        This method returns True if the transfer took place, and False otherwise.
+        
+        Arguments:
+        amount 
+        category 
+        
+        Return Boolean
+        
+        """
+        
         if self.check_funds(amount) == True:
             self.withdraw(amount, "Transfer to" + category.name)
             category.deposit(amount, "Transfer from " + self.name)
@@ -48,6 +87,11 @@ class Category:
         return False
     
     def check_funds(self, amount):
+        """
+        Accepts an amount as an argument.
+        It returns False if the amount is greater than the balance of the budget category and returns True otherwise.
+        """
+
         if self.balance_amount - amount < 0:
             return False
         
@@ -60,6 +104,14 @@ class Category:
             
 
 def create_spend_chart(categories):
+    """
+    Creates a graphic represtation showing the % spent on each category.
+
+    categories
+
+    Return as string simulating a graphical represention
+    """
+    
     total_withdraw = 0
     scale_min = 0
     scale_max = 100
